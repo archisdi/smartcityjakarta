@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kecamatan;
 use Illuminate\Http\Request;
 use GuzzleHttp;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KecamatanController extends Controller
 {
@@ -43,5 +44,26 @@ class KecamatanController extends Controller
         }
 
         return redirect(route('kecamatan.index'));
+    }
+
+    public function export(){
+
+        $kecamatan = Kecamatan::all();
+        $data = collect([]);
+
+        foreach ($kecamatan as $item){
+            $data->push([
+                'id' => $item->id,
+                'nama' => $item->nama,
+                'regional' => $item->kota->nama
+            ]);
+        }
+
+        Excel::create('Data Kecamatan', function ($excel) use ($data) {
+            $excel->sheet('anggota', function ($sheet) use ($data) {
+                $sheet->fromArray($data);
+            })->export('xlsx');
+        });
+
     }
 }

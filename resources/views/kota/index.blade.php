@@ -29,6 +29,7 @@
                     <div class="box-footer">
                         {{$kota->render()}}
                         <div class="pull-right">
+                            <a  href="{{route('kota.export')}}" class="btn btn-sm btn-primary"><span class="fa fa-file-excel-o"></span> Export</a>
                             <a  href="{{route('kota.remine')}}" class="btn btn-sm btn-primary"><span class="fa fa-refresh"></span> Re-Mine</a>
                         </div>
                     </div>

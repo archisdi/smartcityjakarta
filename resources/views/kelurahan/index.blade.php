@@ -11,7 +11,7 @@
     <section class="content">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <div class="box">
+                <div class="box box-primary">
                     <div class="box-body">
                         <table class="table table-striped">
                             <tr>
@@ -33,6 +33,7 @@
                     <div class="box-footer">
                         {{$kelurahan->render()}}
                         <div class="pull-right">
+                            <a  href="{{route('kelurahan.export')}}" class="btn btn-sm btn-primary"><span class="fa fa-file-excel-o"></span> Export</a>
                             <a  href="{{route('kelurahan.remine')}}" class="btn btn-sm btn-primary"><span class="fa fa-refresh"></span> Re-Mine</a>
                         </div>
                     </div>

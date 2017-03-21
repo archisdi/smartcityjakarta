@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Rw;
 use Illuminate\Http\Request;
 use GuzzleHttp;
+use Maatwebsite\Excel\Facades\Excel;
 
 class RwController extends Controller
 {
@@ -47,5 +48,28 @@ class RwController extends Controller
         }
 
         return redirect(route('rw.index'));
+    }
+
+    public function export(){
+
+        $rw = Rw::all();
+        $data = collect([]);
+
+        foreach ($rw as $item){
+            $data->push([
+                'id' => $item->id,
+                'nama' => $item->nama,
+                'regional' => $item->kota->nama,
+                'kecamatan' => $item->kecamatan->nama,
+                'rw' => $item->kelurahan->nama
+            ]);
+        }
+
+        Excel::create('Data RW', function ($excel) use ($data) {
+            $excel->sheet('anggota', function ($sheet) use ($data) {
+                $sheet->fromArray($data);
+            })->export('xlsx');
+        });
+
     }
 }

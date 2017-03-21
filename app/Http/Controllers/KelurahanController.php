@@ -6,6 +6,7 @@ use App\Models\Kelurahan;
 use App\Models\Kota;
 use Illuminate\Http\Request;
 use GuzzleHttp;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KelurahanController extends Controller
 {
@@ -47,5 +48,27 @@ class KelurahanController extends Controller
         }
 
         return redirect(route('kelurahan.index'));
+    }
+
+    public function export(){
+
+        $kelurahan = Kelurahan::all();
+        $data = collect([]);
+
+        foreach ($kelurahan as $item){
+            $data->push([
+                'id' => $item->id,
+                'nama' => $item->nama,
+                'regional' => $item->kota->nama,
+                'kecamatan' => $item->kecamatan->nama
+            ]);
+        }
+
+        Excel::create('Data Kelurahan', function ($excel) use ($data) {
+            $excel->sheet('anggota', function ($sheet) use ($data) {
+                $sheet->fromArray($data);
+            })->export('xlsx');
+        });
+
     }
 }

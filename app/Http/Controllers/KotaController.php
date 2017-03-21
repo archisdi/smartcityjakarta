@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Kota;
 use Illuminate\Http\Request;
 use GuzzleHttp;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KotaController extends Controller
 {
@@ -42,6 +43,26 @@ class KotaController extends Controller
         }
 
         return redirect(route('kota.index'));
+    }
+
+    public function export(){
+
+        $kota = Kota::all();
+        $data = collect([]);
+
+        foreach ($kota as $item){
+            $data->push([
+                'id' => $item->id,
+                'nama' => $item->nama
+            ]);
+        }
+
+        Excel::create('Data Regional', function ($excel) use ($data) {
+            $excel->sheet('anggota', function ($sheet) use ($data) {
+                $sheet->fromArray($data);
+            })->export('xlsx');
+        });
+
     }
 
 }
