@@ -23,7 +23,7 @@
                 </ul>
             </li>
             <li class="{{ Request::is('tps','tps/*') ? 'active' : '' }}"><a href="{{route('tps.index')}}"><i class="fa fa-trash-o"></i> <span>TPS</span></a></li>
-            <li class="{{ Request::is('rs','rs/*')? 'active' : '' }}"><a href="{{route('rs.index')}}"><i class="fa fa-hospital-o"></i> <span>RS / Puskesmas</span></a></li>
+            <li class="{{ Request::is('rumahsakit','rumahsakit/*')? 'active' : '' }}"><a href="{{route('rumahsakit.index')}}"><i class="fa fa-hospital-o"></i> <span>rumahsakit / Puskesmas</span></a></li>
         </ul>
     </section>
     <!-- /.sidebar -->

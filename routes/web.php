@@ -53,7 +53,7 @@ Route::group(['prefix' => 'tps'], function () {
     Route::get('/export', 'TpsController@export')->name('tps.export');
 });
 
-Route::group(['prefix' => 'rs'], function () {
+Route::group(['prefix' => 'rumahsakit'], function () {
     Route::get('/', 'RsController@index')->name('rs.index');
     Route::get('/remine', 'RsController@remine')->name('rs.remine');
     Route::get('/maps', 'RsController@maps')->name('rs.maps');
